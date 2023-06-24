@@ -1,7 +1,15 @@
 import express from "express";
-import { postMe } from "../controller/me.controllers.js";
+import {
+  deleteMe,
+  deleteMeById,
+  getAllMe,
+  postMe,
+  updateMe,
+  updateOrCreateMe,
+} from "../controller/me.controllers.js";
 const router = express.Router();
 
-router.route("/").post(postMe);
+router.route("/:id").put(updateOrCreateMe).patch(updateMe).delete(deleteMeById);
+router.route("/").post(postMe).get(getAllMe).delete(deleteMe);
 
 export default router;
