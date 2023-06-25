@@ -41,8 +41,9 @@ const parentsSchema = new mongoose.Schema(
 
 // ekhon ami chaitesi je ekti parents remove hole tar under e joto gula child ase sob gulay jate remove hoye jay:
 
-parentsSchema.pre("deleteOne", function (next) {
-  Me.deleteOne({ parents: this._id }, next);
+parentsSchema.pre("deleteOne", async (doc, next) => {
+  // Remove all the assignment docs that reference the removed person.
+  await Me.deleteOne({ parents: doc._id });
 });
 
 export const Parents = mongoose.model("parent", parentsSchema);

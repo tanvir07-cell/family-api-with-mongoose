@@ -15,7 +15,7 @@ export const mePostServices = async (req, res) => {
 export const meGetAllServices = async (req, res) => {
   try {
     const me = await Me.find({}).populate("parents").lean().exec();
-    return res.status(200).json({ data: me });
+    return res.status(200).json({ data: me, user: req.user });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: err.message });
