@@ -1,3 +1,4 @@
+import { Me } from "../../me/model/me.js";
 import { Parents } from "../model/parents.js";
 
 export const postParentsServices = async (req, res) => {
@@ -17,6 +18,7 @@ export const deleteParentsServicesById = async (req, res) => {
   try {
     const { id } = req.params;
     const parent = await Parents.findByIdAndDelete({ _id: id });
+    await Me.deleteMany({ parents: id });
     if (!parent) {
       return res.status(400).json({ message: "No parent found with this id" });
     }
